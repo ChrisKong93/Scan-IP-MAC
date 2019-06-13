@@ -16,7 +16,7 @@ def get_local_net_netifaces():
                 # TODO(Guodong Ding) Note: On Windows, netmask maybe give a wrong result in 'netifaces' module.
             except KeyError:
                 pass
-    print('LocalIP:\t' + routingIPAddr)
+    print('LocalIP:' + routingIPAddr)
     print('---------------------------------------------------------')
     localipnums = routingIPAddr.split('.')
     # print(localipnums)
