@@ -1,6 +1,7 @@
 import threading
 import time
 
+import Get_Organization
 import netifaces
 from scapy.layers.l2 import Ether, ARP
 from scapy.sendrecv import srp1
@@ -15,7 +16,8 @@ def get_local_net_netifaces():
                 # TODO(Guodong Ding) Note: On Windows, netmask maybe give a wrong result in 'netifaces' module.
             except KeyError:
                 pass
-    print(routingIPAddr)
+    print('LocalIP:\t' + routingIPAddr)
+    print('---------------------------------------------------------')
     localipnums = routingIPAddr.split('.')
     # print(localipnums)
     localipnums.pop()
@@ -39,7 +41,13 @@ def get_vlan_ip_and_mac(start=0, stop=255):
         # print(res)
         if res:
             # result.append({"localIP": res.psrc, "mac": res.hwsrc})
-            print("IP:" + res.psrc + "-----------MAC:" + res.hwsrc)
+            mac = str(res.hwsrc).upper()
+            macr = mac.replace(':', '-')
+            result = Get_Organization.get_mac_organization(macr)
+            organization = result[0]
+            addr = result[1]
+            print("IP:" + res.psrc + "\nMAC:" + macr + "\nORGANIZATION:" + organization)  # + '\nADDRESS:' + addr)
+            print('---------------------------------------------------------')
     # return result
 
 
