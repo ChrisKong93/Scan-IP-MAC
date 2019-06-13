@@ -1,0 +1,3 @@
+netifaces==0.10.9
+scapy_python3==0.26
+scapy==2.4.2
