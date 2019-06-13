@@ -37,7 +37,7 @@ def get_vlan_ip_and_mac(start=0, stop=255):
         # print(str(ip))
         # 组合协议包
         arpPkt = Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ip)
-        res = srp1(arpPkt, timeout=2, verbose=0)
+        res = srp1(arpPkt, timeout=5, verbose=0)
         # print(res)
         if res:
             # result.append({"localIP": res.psrc, "mac": res.hwsrc})
