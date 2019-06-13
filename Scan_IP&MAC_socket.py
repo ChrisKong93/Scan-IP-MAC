@@ -2,6 +2,7 @@ import socket
 import threading
 import time
 
+import Get_Organization
 from scapy.layers.l2 import Ether, ARP
 from scapy.sendrecv import srp1
 
@@ -25,6 +26,7 @@ def get_local_net_socket():
     #     # else:
     #     #     exit()
     print(localip)
+    print('---------------------------------------------------------')
     localipnums = localip.split('.')
     # print(localipnums)
     localipnums.pop()
@@ -45,11 +47,17 @@ def get_vlan_ip_and_mac(start=0, stop=255):
         # print(str(ip))
         # 组合协议包
         arpPkt = Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ip)
-        res = srp1(arpPkt, timeout=2, verbose=0)
+        res = srp1(arpPkt, timeout=5, verbose=0)
         # print(res)
         if res:
             # result.append({"localIP": res.psrc, "mac": res.hwsrc})
-            print("IP:" + res.psrc + "-----------MAC:" + res.hwsrc)
+            mac = str(res.hwsrc).upper()
+            macr = mac.replace(':', '-')
+            result = Get_Organization.get_mac_organization(macr)
+            organization = result[0]
+            addr = result[1]
+            print("IP:" + res.psrc + "\nMAC:" + macr + "\nORGANIZATION:" + organization)  # + '\nADDRESS:' + addr)
+            print('---------------------------------------------------------')
     # return result
 
 
